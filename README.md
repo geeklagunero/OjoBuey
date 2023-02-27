@@ -1,10 +1,10 @@
 # Calculadora
 
-Proyecto de calculadora simple con flutter para operacioens basicas
+Proyecto de Juego Para adivinar rangos de numero enteros en Swift Y UIKit
 
 ## Getting Started
 
-Esta fue mi primera aplicacion en flutter
+Primer Aplicacion en UIKit y Swit para iOS
 
 Pueden Ver mis proyectos en mis redes
 
