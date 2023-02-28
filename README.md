@@ -1,4 +1,4 @@
-# Calculadora
+# Juego Ojo Buey
 
 Proyecto de Juego Para adivinar rangos de numero enteros en Swift Y UIKit
 
