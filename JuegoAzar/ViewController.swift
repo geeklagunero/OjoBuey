@@ -11,11 +11,16 @@ class ViewController: UIViewController {
     @IBOutlet var slider: UISlider!
     //Etiqueta para mostrar el valor de targetValue
     @IBOutlet var targetLabel: UILabel!
+    @IBOutlet var scoreLabel: UILabel!
+    @IBOutlet var roundLabel: UILabel!
     
     //guarda el valor del slider
     var currentValue: Int = 0
     //valor objetivo es el valor que el usuario debe atinarle
     var targetValue = 0
+    //variable para guardar la puntuacion total en lo que va de las rondas jugadas
+    var score = 0
+    var round = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +31,7 @@ class ViewController: UIViewController {
     //metodo que usamos para crear una nueva ronda
     //seteamos todos lo valores por defecto y mandamos llamar aun nuevo numero aletorio
     func startNewRound(){
+        self.round += 1
         self.targetValue = Int.random(in: 1...100)
         self.currentValue = 50
         self.slider.value = Float(currentValue)
@@ -35,10 +41,19 @@ class ViewController: UIViewController {
     //metodo para asiganar el valor correspondiente a todas las label que tenemos en storyboard
     func updateLabels(){
         targetLabel.text = String(targetValue)
+        scoreLabel.text = String(score)
+        roundLabel.text = String(round)
     }
     
     @IBAction func showAlert(){
-        let message = "El valor del slider is now \(currentValue)" + "\nel valor objetivo es \(targetValue)"
+        
+        //la funcion abs calcula el valor absoluto que es un entero sin signo
+        let difference = abs(currentValue - targetValue)
+        let points = 100 - difference
+        self.score += points
+        
+//        let message = "El valor del slider is now \(currentValue)" + "\nel valor objetivo es \(targetValue)" + "\nLa diferencia es \(difference)"
+        let message = "Tu puntuacion en esta ronda es de \(points)"
         let alert = UIAlertController(title: "Hello, Word", message: message, preferredStyle: .alert)
         
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
