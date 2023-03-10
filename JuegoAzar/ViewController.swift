@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //mandamos llamar el metodo para iniciar la ronda numero 1
-        startNewRound()
+        startNewgame()
     }
     
     //metodo que usamos para crear una nueva ronda
@@ -45,30 +45,63 @@ class ViewController: UIViewController {
         roundLabel.text = String(round)
     }
     
+    func startNewgame(){
+        score = 0
+        round = 0
+        startNewRound()
+    }
     @IBAction func showAlert(){
         
         //la funcion abs calcula el valor absoluto que es un entero sin signo
         let difference = abs(currentValue - targetValue)
-        let points = 100 - difference
+        var points = 100 - difference
+        
+        
+        let title: String
+        if difference == 0 {
+            title = "Perfecto"
+            points += 100
+        } else if difference < 5 {
+            title = "Casi lo tienes"
+            if difference == 1 {
+                points += 50
+            }
+        } else if difference < 10 {
+            title = "Buen Trabajo"
+        } else {
+            title = "Ni Serca Mejora"
+        }
+        
         self.score += points
         
 //        let message = "El valor del slider is now \(currentValue)" + "\nel valor objetivo es \(targetValue)" + "\nLa diferencia es \(difference)"
         let message = "Tu puntuacion en esta ronda es de \(points)"
-        let alert = UIAlertController(title: "Hello, Word", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        //pasar una funcion como parametro a otra funcion es un callback
+        let action = UIAlertAction(title: "OK", style: .default, handler: { _ in
+            //depues que presentamos todo la infomacion, mandamos llamar el metodo para iniciar una nueva ronda
+            //con este clouser que es una funcion que guarda el contexto de su funcion padre
+            //podemos hacer que se detenga la ejecucion de la app hasta que presionemos el boton de ok
+            self.startNewRound()
+        })
         
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
         //depues que presentamos todo la infomacion, mandamos llamar el metodo para iniciar una nueva ronda
-        startNewRound()
+        
     }
 
-    
     @IBAction func sliderMoved(_ sender: UISlider) {
         currentValue = lroundf(sender.value)
         print("El valor del slider is now \(sender.value)")
     }
+    
+    
+    @IBAction func starrOver(_ sender: UIButton) {
+        startNewgame()
+    }
+    
     
 }
 
