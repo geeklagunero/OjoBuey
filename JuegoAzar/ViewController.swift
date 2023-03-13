@@ -24,6 +24,25 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //configuracion personlizada del slider
+        let imagenNormal = UIImage(named: "SliderThumb-Normal")!
+        slider.setThumbImage(imagenNormal, for: .normal)
+        
+        let imagenSeleccionado = UIImage(named: "SliderThumb-Highlighted")!
+        slider.setThumbImage(imagenSeleccionado, for: .highlighted)
+        
+        let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        
+        let tracketLeftImage = UIImage(named: "SliderTrackLeft")!
+        let tracketResizable = tracketLeftImage.resizableImage(withCapInsets: insets)
+        slider.setMinimumTrackImage(tracketResizable, for: .normal)
+        
+        let trackRightImage = UIImage(named: "SliderTrackRight")!
+        let trackRightResizable = trackRightImage.resizableImage(withCapInsets: insets)
+        slider.setMaximumTrackImage(trackRightResizable, for: .normal)
+        
+        
         //mandamos llamar el metodo para iniciar la ronda numero 1
         startNewgame()
     }
